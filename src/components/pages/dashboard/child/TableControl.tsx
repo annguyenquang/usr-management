@@ -1,12 +1,19 @@
 import { useState } from "react";
 import { Input } from "../../../ui/input";
+import { Label } from "../../../ui/label.tsx";
+import { Button } from "../../../ui/button.tsx";
 import { ROLE_OPTIONS } from "./TableWrapper.tsx";
+import AddButton from "./AddButton.tsx";
+
 type TableControlProps = {
     roleOption: number;
     setRoleOption: (role: number) => void;
     setSearchText: (searchText: string) => void;
     rowsPerPage: number;
     setRowsPerPage: (rowsPerPage: number) => void;
+    page: number;
+    setPage: (page: number) => void;
+    exportToXLSX: () => void;
 }
 
 const TableControl: React.FC<TableControlProps> = (props) => {
@@ -14,19 +21,27 @@ const TableControl: React.FC<TableControlProps> = (props) => {
     const onRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         props.setRoleOption(parseInt(event.target.value));
     }
-    const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         props.setSearchText(event.target.value);
     }
-    const handleChangeTempRowPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onTempRowPerPageChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setTempRowsPerPage(parseInt(event.target.value));
     }
 
-    function onChangeRowPerPages(event: React.FormEvent<HTMLFormElement>): void {
+    const onChangeRowPerPages = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
         console.log(tempRowsPerPage);
         props.setRowsPerPage(tempRowsPerPage);
     }
+    const onPageChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        props.setPage(parseInt(event.target.value));
+    }
+    const onExport = (): void => {
+        props.exportToXLSX();
+    }
+    const openAddForm = (): void => {
 
+    }
     return (
         <>
             <div className="flex flex-row">
@@ -38,8 +53,12 @@ const TableControl: React.FC<TableControlProps> = (props) => {
                     </select>
                 </div>
                 <form onSubmit={onChangeRowPerPages}>
-                    <Input value={tempRowsPerPage} type="number" onChange={handleChangeTempRowPerPage} />
+                    <Input value={tempRowsPerPage} type="number" onChange={onTempRowPerPageChange} />
                 </form>
+                <Label htmlFor="page">Rows per page</Label>
+                <Input id="page" value={props.page} type="number" onChange={onPageChange} />
+                <Button onClick={onExport}>Export</Button>
+                <AddButton></AddButton>
             </div >
         </>
     )

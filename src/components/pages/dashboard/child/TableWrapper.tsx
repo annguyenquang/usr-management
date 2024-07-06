@@ -3,7 +3,7 @@ import User from "../../../../types/User"
 import TableControl from "./TableControl"
 import UserTable from "./UserTable"
 import Role from "../../../../enums/Role"
-
+import * as XLSX from 'xlsx'
 type TableWrapperProps = {
     users: User[]
 }
@@ -15,6 +15,13 @@ const TableWrapper: React.FC<TableWrapperProps> = (props) => {
     const [displayedUsers, setDisplayedUsers] = useState<User[]>([]);
     const [roleOption, setRoleOption] = useState<number>(0);
     const [searchText, setSearchText] = useState<string>("");
+
+    const exportToXLSX = (): void => {
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.json_to_sheet(props.users);
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+        XLSX.writeFile(wb, "my_excel_file.xlsx");
+    }
 
     useEffect(() => {
         console.log("displayedUsers");
@@ -49,7 +56,7 @@ const TableWrapper: React.FC<TableWrapperProps> = (props) => {
 
     return (
         <div>
-            <TableControl rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} setSearchText={setSearchText} roleOption={roleOption} setRoleOption={setRoleOption} />
+            <TableControl exportToXLSX={exportToXLSX} page={page} setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} setSearchText={setSearchText} roleOption={roleOption} setRoleOption={setRoleOption} />
             <UserTable users={displayedUsers} />
         </div>
     )

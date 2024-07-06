@@ -8,7 +8,7 @@ type TableProps = {
 const UserTable: React.FC<TableProps> = (props) => {
     return (
         <div>
-            <table>
+            <table id="usr-table">
                 <thead>
                     <tr>
                         <th>ID</th>
