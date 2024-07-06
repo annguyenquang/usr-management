@@ -5,7 +5,8 @@ import UserTable from "./UserTable"
 import Role from "../../../../enums/Role"
 import * as XLSX from 'xlsx'
 type TableWrapperProps = {
-    users: User[]
+    users: User[],
+    addUser: (user: User) => void;
 }
 
 export const ROLE_OPTIONS = ["All", ...Object.values(Role).map((role: Role) => role as string)];
@@ -56,7 +57,7 @@ const TableWrapper: React.FC<TableWrapperProps> = (props) => {
 
     return (
         <div>
-            <TableControl exportToXLSX={exportToXLSX} page={page} setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} setSearchText={setSearchText} roleOption={roleOption} setRoleOption={setRoleOption} />
+            <TableControl addUser={props.addUser} exportToXLSX={exportToXLSX} page={page} setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} setSearchText={setSearchText} roleOption={roleOption} setRoleOption={setRoleOption} />
             <UserTable users={displayedUsers} />
         </div>
     )

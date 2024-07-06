@@ -5,7 +5,10 @@ import TableWrapper from "./child/TableWrapper";
 
 const Dashboard: React.FC = () => {
     const [users, setUsers] = useState<User[]>([]);
-
+    const addUser = (user: User): void => {
+        console.log("User in Dashboard", user);
+        setUsers([...users, { ...user, id: users.length + 1 }]);
+    };
     useEffect(() => {
         setUsers(generateUsers(100));
     }, []);
@@ -14,7 +17,7 @@ const Dashboard: React.FC = () => {
     return (
         <div>
             <h1>Dashboard</h1>
-            <TableWrapper users={users}></TableWrapper>
+            <TableWrapper addUser={addUser} users={users}></TableWrapper>
         </div>
     );
 }

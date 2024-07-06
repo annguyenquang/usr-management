@@ -4,6 +4,7 @@ import { Label } from "../../../ui/label.tsx";
 import { Button } from "../../../ui/button.tsx";
 import { ROLE_OPTIONS } from "./TableWrapper.tsx";
 import AddButton from "./AddButton.tsx";
+import User from "../../../../types/User.ts";
 
 type TableControlProps = {
     roleOption: number;
@@ -14,6 +15,7 @@ type TableControlProps = {
     page: number;
     setPage: (page: number) => void;
     exportToXLSX: () => void;
+    addUser: (user: User) => void;
 }
 
 const TableControl: React.FC<TableControlProps> = (props) => {
@@ -58,7 +60,7 @@ const TableControl: React.FC<TableControlProps> = (props) => {
                 <Label htmlFor="page">Rows per page</Label>
                 <Input id="page" value={props.page} type="number" onChange={onPageChange} />
                 <Button onClick={onExport}>Export</Button>
-                <AddButton></AddButton>
+                <AddButton addUser={props.addUser}></AddButton>
             </div >
         </>
     )
