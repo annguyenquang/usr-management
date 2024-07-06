@@ -41,7 +41,7 @@ const generateUsers = (quantity: number): User[] => {
             firstName: generateFirstName(),
             lastName: generateLastName(),
             role: generateRandomRole(),
-            phonenumber: generateRandomPhoneNumber(),
+            phoneNumber: generateRandomPhoneNumber(),
             email: ''
         }
         tempUser.email = generateRandomEmail(`${tempUser.firstName}${tempUser.lastName}`);
