@@ -4,6 +4,7 @@ import DeleteButton from "./DeleteButton";
 import EditButton from "./EditButton";
 import User from "../../../../types/User";
 import React from "react";
+import Role from "../../../../enums/Role";
 
 type TableProps = {
     users: User[]
@@ -122,7 +123,11 @@ const UserTable: React.FC<TableProps> = (props) => {
                             <td className="font-semibold">{user.lastName}</td>
                             <td className="font-semibold">{user.phoneNumber}</td>
                             <td className="font-semibold">{user.email}</td>
-                            <td className="font-semibold">{user.role}</td>
+                            <td className="font-semibold">
+                                <span className={`px-2 ${user.role === Role.USER && "bg-slate-800"} ${user.role === Role.EDITOR && "bg-sky-800"} ${user.role === Role.ADMIN && "bg-red-500"}`}>
+                                    {user.role}
+                                </span>
+                            </td>
                             <td className="font-semibold"><EditButton user={user} editButton={props.editUser} /></td>
                             <td className="font-semibold"><DeleteButton deleteUser={props.deleteUser} user={user} /></td>
                         </tr>

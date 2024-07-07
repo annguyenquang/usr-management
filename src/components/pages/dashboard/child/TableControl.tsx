@@ -33,7 +33,7 @@ const TableControl: React.FC<TableControlProps> = (props) => {
                 <div className="flex space-x-4">
                     <Input className="w-96 border-2 rounded-none bg-[#515151]" placeholder="Search items..." onChange={onSearchChange} />
                     <div>
-                        <select className="h-full bg-[#515151] text-white" onChange={onRoleChange}>
+                        <select className="h-full bg-[#515151] border-2 border-white text-white" onChange={onRoleChange}>
                             {ROLE_OPTIONS.map((role, idx) =>
                                 <option key={idx} value={idx}>{role}</option>)}
                         </select>
