@@ -6,6 +6,7 @@ import Role from "../../../../enums/Role"
 import * as XLSX from 'xlsx'
 import TablePagination from "./TablePagination"
 import { SORT_OPTIONS } from "../Dashboard"
+import React from "react"
 type TableWrapperProps = {
     users: User[],
     addUser: (user: User) => void;
@@ -18,7 +19,7 @@ export const ROLE_OPTIONS = ["All", ...Object.values(Role).map((role: Role) => r
 
 const TableWrapper: React.FC<TableWrapperProps> = (props) => {
     const [page, setPage] = useState<number>(1);
-    const [rowsPerPage, setRowsPerPage] = useState<number>(5);
+    const [rowsPerPage, setRowsPerPage] = useState<number>(15);
     const [displayedUsers, setDisplayedUsers] = useState<User[]>([]);
     const [roleOption, setRoleOption] = useState<number>(0);
     const [searchText, setSearchText] = useState<string>("");
