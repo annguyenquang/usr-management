@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 #root {
-  background: rgb(94, 94, 94);
-  background: linear-gradient(137deg, rgba(94, 94, 94, 1) 0%, rgba(0, 0, 0, 1) 100%);
+  background: rgb(131, 131, 131);
+  background: linear-gradient(139deg, rgba(131, 131, 131, 1) 0%, rgba(70, 70, 70, 1) 81%, rgba(20, 20, 20, 1) 100%);
 }
 
 td,

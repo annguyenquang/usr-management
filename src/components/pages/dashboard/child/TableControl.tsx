@@ -3,6 +3,7 @@ import { Button } from "../../../ui/button.tsx";
 import { ROLE_OPTIONS } from "./TableWrapper.tsx";
 import AddButton from "./AddButton.tsx";
 import User from "../../../../types/User.ts";
+import React from "react";
 
 type TableControlProps = {
     roleOption: number;
@@ -30,16 +31,16 @@ const TableControl: React.FC<TableControlProps> = (props) => {
         <><div>
             <div className="flex flex-row justify-between space-x-1">
                 <div className="flex space-x-4">
-                    <Input className="w-96" onChange={onSearchChange} />
+                    <Input className="w-96 border-2 rounded-none bg-[#515151]" placeholder="Search items..." onChange={onSearchChange} />
                     <div>
-                        <select onChange={onRoleChange}>
+                        <select className="h-full bg-[#515151] text-white" onChange={onRoleChange}>
                             {ROLE_OPTIONS.map((role, idx) =>
                                 <option key={idx} value={idx}>{role}</option>)}
                         </select>
                     </div>
                 </div>
                 <div className="flex space-x-3">
-                    <Button className="border" onClick={onExport}>Export</Button>
+                    <Button className="border-2 rounded-none bg-[#515151]" onClick={onExport}>Export</Button>
                     <AddButton addUser={props.addUser}></AddButton>
                 </div>
             </div >

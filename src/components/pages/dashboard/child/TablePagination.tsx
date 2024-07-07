@@ -60,12 +60,13 @@ const TablePagination: React.FC<PaginationProps> = (props) => {
                 </PaginationContent>
             </Pagination>
             <div className="flex-1 flex flex-row justify-end space-x-1 items-center">
-                <label htmlFor="rows" className="text-center">Shows</label>
+                <label htmlFor="rows" className="mr-2">Shows: </label>
                 {/* <select className="border-[3px] p-1 bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={(e) => { props.setRowsPerPage(parseInt(e.currentTarget.value)) }}> */}
                 <select className="border-[3px] border-stone-300  rounded bg-transparent text-white" onChange={(e) => { props.setRowsPerPage(parseInt(e.currentTarget.value)) }}>
-                    <option value={5}>5 rows</option>
-                    <option value={10}>10 rows</option>
-                    <option value={15}>15 rows</option>
+                    <option className="bg-black" value={5}>5 rows</option>
+                    <option className="bg-black" value={10}>10 rows</option>
+                    <option className="bg-black" value={15}>15 rows</option>
+
                 </select>
             </div>
         </div>
