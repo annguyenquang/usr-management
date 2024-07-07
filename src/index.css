@@ -6,3 +6,12 @@
   background: rgb(94, 94, 94);
   background: linear-gradient(137deg, rgba(94, 94, 94, 1) 0%, rgba(0, 0, 0, 1) 100%);
 }
+
+td,
+th,
+label,
+a,
+button {
+  color: white;
+  font-family: sans-serif;
+}
