@@ -58,7 +58,7 @@ const TableWrapper: React.FC<TableWrapperProps> = (props) => {
         const endIndex = (startIndex + rowsPerPage) > props.users.length - 1 ?
             props.users.length : startIndex + rowsPerPage;
         setDisplayedUsers(props.users.slice(startIndex, endIndex));
-    }, [page, props.users, rowsPerPage, roleOption]);
+    }, [page, props.users, rowsPerPage]);
 
     return (
         <div className="h-full flex flex-col justify-between p-5">
