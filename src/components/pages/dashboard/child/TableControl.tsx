@@ -1,4 +1,4 @@
-import { Input } from "../../../ui/input";
+import { Input } from "../../../ui/input.tsx";
 import { Button } from "../../../ui/button.tsx";
 import { ROLE_OPTIONS } from "./TableWrapper.tsx";
 import AddButton from "./AddButton.tsx";

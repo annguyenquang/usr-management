@@ -37,7 +37,7 @@ const generateUsers = (quantity: number): User[] => {
     let tempUser: User;
     for (let i = 0; i < quantity; i++) {
         tempUser = {
-            id: '' + i,
+            id: i,
             firstName: generateFirstName(),
             lastName: generateLastName(),
             role: generateRandomRole(),

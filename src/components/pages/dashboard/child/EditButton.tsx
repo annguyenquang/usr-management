@@ -5,6 +5,7 @@ import User from "../../../../types/User";
 import { Button } from "../../../ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../../../ui/dialog";
 import { Input } from "../../../ui/input";
+import React from "react";
 
 type EditButton = {
     user: User;
