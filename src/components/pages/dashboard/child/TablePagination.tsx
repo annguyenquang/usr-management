@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "../../../ui/pagination";
 import User from "../../../../types/User";
+import React from "react";
 
 type PaginationProps = {
     users: User[];
@@ -35,44 +36,33 @@ const TablePagination: React.FC<PaginationProps> = (props) => {
             <Pagination className="flex-1">
                 <PaginationContent>
                     <PaginationItem onClick={() => { if (props.page !== 1) { props.setPage(props.page - 1) } }}>
-                        <PaginationPrevious href="#" size={100} />
+                        <PaginationPrevious className="hover:text-blue-500" href="#" size={100} />
                     </PaginationItem>
                     {
                         displayedPages.map((page) => {
                             return (
                                 <PaginationItem onClick={() => { props.setPage(page) }} key={page}>
-                                    <PaginationLink className="hover:bg-orange-400" isActive={page == props.page} href="#" size={undefined}>{page}</PaginationLink>
+                                    <PaginationLink className={`${page == props.page ? "bg-orange-400" : ""}`} isActive={page == props.page} href="#" size={undefined}>{page}</PaginationLink>
                                 </PaginationItem>
                             )
                         })
                     }
-                    {/* <PaginationItem>
-                    <PaginationLink href="#" size={undefined}>1</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                    <PaginationLink href="#" isActive size={undefined}>
-                        2
-                    </PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                    <PaginationLink href="#" size={undefined}>3</PaginationLink>
-                </PaginationItem>*/}
-                    { }
                     <PaginationItem>
-                        <PaginationEllipsis />
+                        <PaginationEllipsis className="text-white" />
                     </PaginationItem>
-                    <PaginationItem onClick={() => {
+                    <PaginationItem className="rounded p-1" onClick={() => {
                         if (props.page < Math.ceil(props.users.length / props.rowsPerPage)) {
                             props.setPage(props.page + 1);
                         }
                     }}>
-                        <PaginationNext href="#" size={0} />
+                        <PaginationNext className="hover:text-blue-500" href="#" size={0} />
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
             <div className="flex-1 flex flex-row justify-end space-x-1 items-center">
                 <label htmlFor="rows" className="text-center">Shows</label>
-                <select className="border-[3px] p-1" onChange={(e) => { props.setRowsPerPage(parseInt(e.currentTarget.value)) }}>
+                {/* <select className="border-[3px] p-1 bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={(e) => { props.setRowsPerPage(parseInt(e.currentTarget.value)) }}> */}
+                <select className="border-[3px] border-stone-300  rounded bg-transparent text-white" onChange={(e) => { props.setRowsPerPage(parseInt(e.currentTarget.value)) }}>
                     <option value={5}>5 rows</option>
                     <option value={10}>10 rows</option>
                     <option value={15}>15 rows</option>
