@@ -13,6 +13,7 @@ const TablePagination: React.FC<PaginationProps> = (props) => {
     const NUMBER_OF_PAGES = 5;
     const [displayedPages, setDisplayedPages] = useState<number[]>([]);
     useEffect(() => {
+        console.log("page", props.page);
         let dpage: number[] = [];
         if (props.page > NUMBER_OF_PAGES / 2) {
             for (let i = props.page - Math.floor(NUMBER_OF_PAGES / 2); i < props.page + Math.floor(NUMBER_OF_PAGES / 2); i++) {
@@ -23,17 +24,17 @@ const TablePagination: React.FC<PaginationProps> = (props) => {
             dpage.push(...[...Array(NUMBER_OF_PAGES).keys()].map((i) => i + 1));
         }
         const lastPage = Math.ceil(props.users.length / props.rowsPerPage);
-        console.log(lastPage);
+        console.log("last page", lastPage);
         if (dpage[dpage.length - 1] > lastPage) {
             dpage = dpage.map((page) => page - (dpage[dpage.length - 1] - lastPage));
         }
         setDisplayedPages(dpage);
-    }, [props.page]);
+    }, [props.page, props.users]);
     return (
         <div className="flex p-x-2 items-center">
             <Pagination className="flex-1">
                 <PaginationContent>
-                    <PaginationItem>
+                    <PaginationItem onClick={() => { if (props.page !== 1) { props.setPage(props.page - 1) } }}>
                         <PaginationPrevious href="#" size={100} />
                     </PaginationItem>
                     {
@@ -60,7 +61,11 @@ const TablePagination: React.FC<PaginationProps> = (props) => {
                     <PaginationItem>
                         <PaginationEllipsis />
                     </PaginationItem>
-                    <PaginationItem>
+                    <PaginationItem onClick={() => {
+                        if (props.page < Math.ceil(props.users.length / props.rowsPerPage)) {
+                            props.setPage(props.page + 1);
+                        }
+                    }}>
                         <PaginationNext href="#" size={0} />
                     </PaginationItem>
                 </PaginationContent>
