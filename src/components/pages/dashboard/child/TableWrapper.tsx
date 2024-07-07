@@ -35,11 +35,16 @@ const TableWrapper: React.FC<TableWrapperProps> = (props) => {
     }, [props.users]);
 
     useEffect(() => {
-        setDisplayedUsers(props.users.filter((user) => user.role === ROLE_OPTIONS[roleOption] || roleOption === 0));
+        if (roleOption === 0) {
+            setDisplayedUsers(props.users);
+        }
+        else {
+            setDisplayedUsers(props.users.filter((user) => user.role === ROLE_OPTIONS[roleOption]));
+        }
     }, [roleOption]);
 
     useEffect(() => {
-        setDisplayedUsers(displayedUsers.filter((user) =>
+        setDisplayedUsers(props.users.filter((user) =>
             user.firstName.toLowerCase().includes(searchText.toLowerCase()) ||
             user.lastName.toLowerCase().includes(searchText.toLowerCase()) ||
             user.email.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -53,34 +58,38 @@ const TableWrapper: React.FC<TableWrapperProps> = (props) => {
         const endIndex = (startIndex + rowsPerPage) > props.users.length - 1 ?
             props.users.length : startIndex + rowsPerPage;
         setDisplayedUsers(props.users.slice(startIndex, endIndex));
-    }, [page, props.users, rowsPerPage]);
+    }, [page, props.users, rowsPerPage, roleOption]);
 
     return (
-        <div className="flex flex-col p-5">
-            <TableControl
-                addUser={props.addUser}
-                exportToXLSX={exportToXLSX}
-                page={page}
-                setPage={setPage}
-                rowsPerPage={rowsPerPage}
-                setRowsPerPage={setRowsPerPage}
-                setSearchText={setSearchText}
-                roleOption={roleOption}
-                setRoleOption={setRoleOption} />
-            <div className="mt-5">
-                <UserTable
-                    editUser={props.editUser}
-                    deleteUser={props.deleteUser}
-                    users={displayedUsers}
-                    sortById={props.sortById} />
+        <div className="h-full flex flex-col justify-between p-5">
+            <div className=" overflow-auto">
+                <TableControl
+                    addUser={props.addUser}
+                    exportToXLSX={exportToXLSX}
+                    page={page}
+                    setPage={setPage}
+                    rowsPerPage={rowsPerPage}
+                    setRowsPerPage={setRowsPerPage}
+                    setSearchText={setSearchText}
+                    roleOption={roleOption}
+                    setRoleOption={setRoleOption} />
+                <div className="mt-5">
+                    <UserTable
+                        editUser={props.editUser}
+                        deleteUser={props.deleteUser}
+                        users={displayedUsers}
+                        sortById={props.sortById} />
+                </div>
             </div>
-            <TablePagination
-                users={props.users}
-                page={page}
-                setPage={setPage}
-                rowsPerPage={rowsPerPage}
-                setRowsPerPage={setRowsPerPage}
-            ></TablePagination>
+            <div className="flxe-1">
+                <TablePagination
+                    users={props.users}
+                    page={page}
+                    setPage={setPage}
+                    rowsPerPage={rowsPerPage}
+                    setRowsPerPage={setRowsPerPage}
+                ></TablePagination>
+            </div>
         </div>
     )
 }

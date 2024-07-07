@@ -3,17 +3,20 @@ import Layout from "./components/layout/Layout";
 import Dashboard from "./components/pages/dashboard/Dashboard";
 import Setting from "./components/pages/setting/Setting";
 import About from "./components/pages/about/About";
+import { Theme } from "@radix-ui/themes";
 
 const AppRoutes: React.FC<{}> = () => {
     return (<>
         <BrowserRouter>
-            <Layout>
-                <Routes>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/setting" element={<Setting />} />
-                    <Route path="/about" element={<About />} />
-                </Routes>
-            </Layout>
+            <Theme appearance="dark">
+                <Layout>
+                    <Routes>
+                        <Route path="/" element={<Dashboard />} />
+                        <Route path="/setting" element={<Setting />} />
+                        <Route path="/about" element={<About />} />
+                    </Routes>
+                </Layout>
+            </Theme>
         </BrowserRouter>
     </>)
 }

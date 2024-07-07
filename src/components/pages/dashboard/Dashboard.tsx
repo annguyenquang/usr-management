@@ -84,8 +84,7 @@ const Dashboard: React.FC = () => {
                 sortByRole: sortByRole,
             }}
         >
-            <div className="">
-                <h1>Dashboard</h1>
+            <div className="h-full">
                 <TableWrapper sortById={sortById} editUser={editUser} deleteUser={deleteUser} addUser={addUser} users={users}></TableWrapper>
             </div>
         </UserContext.Provider>
