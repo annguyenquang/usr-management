@@ -4,7 +4,7 @@ type ContentProps = {
 
 const Content: React.FC<ContentProps> = ({ children }) => {
     return (
-        <main className="content">
+        <main className="content h-screen">
             {children}
         </main>
     )

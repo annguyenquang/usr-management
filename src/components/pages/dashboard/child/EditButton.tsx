@@ -1,3 +1,4 @@
+
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import Role from "../../../../enums/Role";
 import User from "../../../../types/User";
@@ -5,8 +6,9 @@ import { Button } from "../../../ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../../../ui/dialog";
 import { Input } from "../../../ui/input";
 
-type AddButtonProps = {
-    addUser: (user: User) => void;
+type EditButton = {
+    user: User;
+    editButton: (user: User) => void;
 }
 
 interface IFormInput {
@@ -17,55 +19,33 @@ interface IFormInput {
     userRole: number;
 }
 
-const AddButton: React.FC<AddButtonProps> = (props) => {
-    const { handleSubmit, control, formState: { errors } } = useForm<IFormInput>();
-    // const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     const form = e.currentTarget;
-    //     let role: Role = Role.USER;
-    //     console.log(form.userRole.value);
-    //     switch (form.userRole.value) {
-    //         case "0":
-    //             role = Role.ADMIN;
-    //             break;
-    //         case "1":
-    //             role = Role.USER;
-    //             break;
-    //         case "2":
-    //             role = Role.EDITOR;
-    //             break;
-    //         default:
-    //             role = Role.USER;
-    //             break;
-    //     }
-    //     console.log(role);
-    //     const user: User = {
-    //         id: -1,
-    //         firstName: form.fname.value,
-    //         lastName: form.lname.value,
-    //         phoneNumber: form.phone.value,
-    //         email: form.email.value,
-    //         role: role
-    //     }
-    //     console.log(user);
-    //     props.addUser(user);
-    // }
+const EditButton: React.FC<EditButton> = (props) => {
+    const { handleSubmit, control, formState: { errors } } = useForm<IFormInput>({
+        defaultValues: {
+            fname: props.user.firstName as string,
+            lname: props.user.lastName as string,
+            phone: props.user.phoneNumber as string,
+            email: props.user.email as string,
+            userRole: Object.values(Role).indexOf(props.user.role)
+        }
+    });
+
     const onSubmit: SubmitHandler<IFormInput> = (data) => {
-        let role: Role = Object.values(Role)[data.userRole];
         const user: User = {
-            id: -1,
+            id: props.user.id,
             firstName: data.fname,
             lastName: data.lname,
             phoneNumber: data.phone,
             email: data.email,
             role: Object.values(Role)[data.userRole]
         }
-        props.addUser(user);
+        props.editButton(user);
     }
+
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline">Add</Button>
+                <Button variant="outline">Edit</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
                 <DialogHeader>
@@ -91,7 +71,7 @@ const AddButton: React.FC<AddButtonProps> = (props) => {
                                 <Controller name="lname"
                                     control={control}
                                     rules={{ required: "Last name needed" }}
-                                    render={({ field }) => <Input {...field}></Input>}>
+                                    render={({ field }) => <Input  {...field}></Input>}>
                                 </Controller>
                                 {errors.lname && <span className="text-red-500">{errors.lname.message}</span>}
                             </div>
@@ -99,7 +79,7 @@ const AddButton: React.FC<AddButtonProps> = (props) => {
                                 <label htmlFor="phone">Phone</label>
                                 <Controller name="phone"
                                     control={control}
-                                    render={({ field }) => <Input {...field}></Input>}>
+                                    render={({ field }) => <Input  {...field}></Input>}>
                                 </Controller>
                             </div>
                             <div className="input-container">
@@ -109,22 +89,22 @@ const AddButton: React.FC<AddButtonProps> = (props) => {
                                     render={({ field }) => <Input {...field}></Input>}>
                                 </Controller>
                             </div>
-                            <div className="select-container">
-                                <label htmlFor="userRole">Role</label>
+                            <div className="select-container mt-2 flex">
+                                <label className="mr-2" htmlFor="userRole">Role</label>
                                 <Controller name="userRole"
                                     control={control}
                                     render={({ field }) =>
-                                        <select {...field}>
+                                        <select {...field} className="border rounded border-stone-400 p-1">
                                             {Object.keys(Role).map((role, idx) => (
                                                 <option className="bg-white" key={idx} value={idx}>{role}</option>
                                             ))}
                                         </select>}></Controller>
                             </div>
-                            <div className="flex justify-end">
+                            <div className="flex justify-end space-x-3">
                                 <DialogClose asChild>
-                                    <Button variant="outline">Cancel</Button>
+                                    <Button className="border-stone-300 border hover:border-2 hover:border-black hover:bg-blue-600" value="outline">Cancel</Button>
                                 </DialogClose>
-                                <Button type="submit">Save</Button>
+                                <Button className="bg-lime-400" type="submit">Save</Button>
                             </div>
                         </form>
                     </div>
@@ -133,4 +113,4 @@ const AddButton: React.FC<AddButtonProps> = (props) => {
         </Dialog >
     )
 }
-export default AddButton;
+export default EditButton;

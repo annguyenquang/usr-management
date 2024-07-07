@@ -8,7 +8,7 @@ type LayoutProps = {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
     return (
         <div className="layout">
-            <SideBar />
+            {/* <SideBar /> */}
             <Content>
                 {children}
             </Content>

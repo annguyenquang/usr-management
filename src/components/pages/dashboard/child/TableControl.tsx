@@ -41,12 +41,9 @@ const TableControl: React.FC<TableControlProps> = (props) => {
     const onExport = (): void => {
         props.exportToXLSX();
     }
-    const openAddForm = (): void => {
-
-    }
     return (
-        <>
-            <div className="flex flex-row">
+        <><div>
+            <div className="flex flex-row space-x-1">
                 <Input onChange={onSearchChange} />
                 <div>
                     <select onChange={onRoleChange}>
@@ -59,9 +56,10 @@ const TableControl: React.FC<TableControlProps> = (props) => {
                 </form>
                 <Label htmlFor="page">Rows per page</Label>
                 <Input id="page" value={props.page} type="number" onChange={onPageChange} />
-                <Button onClick={onExport}>Export</Button>
+                <Button className="border" onClick={onExport}>Export</Button>
                 <AddButton addUser={props.addUser}></AddButton>
             </div >
+        </div>
         </>
     )
 }

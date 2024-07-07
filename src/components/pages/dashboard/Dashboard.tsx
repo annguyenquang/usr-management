@@ -9,15 +9,21 @@ const Dashboard: React.FC = () => {
         console.log("User in Dashboard", user);
         setUsers([...users, { ...user, id: users.length + 1 }]);
     };
+    const deleteUser = (user: User): void => {
+        setUsers(users.filter((u) => u.id !== user.id));
+    }
+    const editUser = (newUser: User): void => {
+        setUsers(users.map((user) => user.id === newUser.id ? newUser : user));
+    }
     useEffect(() => {
         setUsers(generateUsers(100));
     }, []);
 
 
     return (
-        <div>
+        <div className="">
             <h1>Dashboard</h1>
-            <TableWrapper addUser={addUser} users={users}></TableWrapper>
+            <TableWrapper editUser={editUser} deleteUser={deleteUser} addUser={addUser} users={users}></TableWrapper>
         </div>
     );
 }
