@@ -67,11 +67,11 @@ const TablePagination: React.FC<PaginationProps> = (props) => {
                 </PaginationContent>
             </Pagination>
             <div className="flex-1 flex flex-row justify-end space-x-1 items-center">
-                <label htmlFor="rows" className="text-center">Rows</label>
-                <select className="border-[3px] p-1 ">
-                    <option>5 rows</option>
-                    <option>10 rows</option>
-                    <option>15 rows</option>
+                <label htmlFor="rows" className="text-center">Shows</label>
+                <select className="border-[3px] p-1" onChange={(e) => { props.setRowsPerPage(parseInt(e.currentTarget.value)) }}>
+                    <option value={5}>5 rows</option>
+                    <option value={10}>10 rows</option>
+                    <option value={15}>15 rows</option>
                 </select>
             </div>
         </div>
