@@ -38,16 +38,16 @@ const AddButton: React.FC<AddButtonProps> = (props) => {
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
                 <DialogHeader>
-                    <DialogTitle>Share link</DialogTitle>
+                    <DialogTitle>Add User</DialogTitle>
                     <DialogDescription>
-                        Anyone who has this link will be able to view this.
+                        Add a proper user to the system.
                     </DialogDescription>
                 </DialogHeader>
                 <div className="flex items-center space-x-2">
                     <div className="grid flex-1 gap-2">
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="input-container">
-                                <label htmlFor="fname">First name</label>
+                                <label className="text-black" htmlFor="fname">First name</label>
                                 <Controller name="fname"
                                     control={control}
                                     rules={{ required: "First name needed" }}
@@ -56,7 +56,7 @@ const AddButton: React.FC<AddButtonProps> = (props) => {
                                 {errors.fname && <span className="text-red-500">{errors.fname.message}</span>}
                             </div>
                             <div className="input-container">
-                                <label htmlFor="lname">Last name</label>
+                                <label className="text-black" htmlFor="lname">Last name</label>
                                 <Controller name="lname"
                                     control={control}
                                     rules={{ required: "Last name needed" }}
@@ -65,21 +65,21 @@ const AddButton: React.FC<AddButtonProps> = (props) => {
                                 {errors.lname && <span className="text-red-500">{errors.lname.message}</span>}
                             </div>
                             <div className="input-container">
-                                <label htmlFor="phone">Phone</label>
+                                <label className="text-black" htmlFor="phone">Phone</label>
                                 <Controller name="phone"
                                     control={control}
                                     render={({ field }) => <Input {...field}></Input>}>
                                 </Controller>
                             </div>
                             <div className="input-container">
-                                <label htmlFor="email">Email</label>
+                                <label className="text-black" htmlFor="email">Email</label>
                                 <Controller name="email"
                                     control={control}
                                     render={({ field }) => <Input {...field}></Input>}>
                                 </Controller>
                             </div>
                             <div className="select-container">
-                                <label htmlFor="userRole">Role</label>
+                                <label className="text-black" htmlFor="userRole">Role</label>
                                 <Controller name="userRole"
                                     control={control}
                                     render={({ field }) =>
@@ -89,11 +89,11 @@ const AddButton: React.FC<AddButtonProps> = (props) => {
                                             ))}
                                         </select>}></Controller>
                             </div>
-                            <div className="flex justify-end">
+                            <div className="flex justify-between mt-2 space-x-2">
                                 <DialogClose asChild>
-                                    <Button variant="outline">Cancel</Button>
+                                    <Button className="bg-gray-300 border-stone-300 border hover:border-2 hover:border-black hover:bg-blue-600" variant="outline">Cancel</Button>
                                 </DialogClose>
-                                <Button type="submit">Save</Button>
+                                <Button className="bg-blue-400" type="submit">Save</Button>
                             </div>
                         </form>
                     </div>
