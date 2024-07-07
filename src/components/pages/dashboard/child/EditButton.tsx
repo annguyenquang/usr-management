@@ -3,7 +3,7 @@ import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import Role from "../../../../enums/Role";
 import User from "../../../../types/User";
 import { Button } from "../../../ui/button";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../../../ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../../../ui/dialog";
 import { Input } from "../../../ui/input";
 
 type EditButton = {

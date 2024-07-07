@@ -2,7 +2,7 @@ import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import Role from "../../../../enums/Role";
 import User from "../../../../types/User";
 import { Button } from "../../../ui/button";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../../../ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../../../ui/dialog";
 import { Input } from "../../../ui/input";
 
 type AddButtonProps = {
@@ -19,39 +19,7 @@ interface IFormInput {
 
 const AddButton: React.FC<AddButtonProps> = (props) => {
     const { handleSubmit, control, formState: { errors } } = useForm<IFormInput>();
-    // const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     const form = e.currentTarget;
-    //     let role: Role = Role.USER;
-    //     console.log(form.userRole.value);
-    //     switch (form.userRole.value) {
-    //         case "0":
-    //             role = Role.ADMIN;
-    //             break;
-    //         case "1":
-    //             role = Role.USER;
-    //             break;
-    //         case "2":
-    //             role = Role.EDITOR;
-    //             break;
-    //         default:
-    //             role = Role.USER;
-    //             break;
-    //     }
-    //     console.log(role);
-    //     const user: User = {
-    //         id: -1,
-    //         firstName: form.fname.value,
-    //         lastName: form.lname.value,
-    //         phoneNumber: form.phone.value,
-    //         email: form.email.value,
-    //         role: role
-    //     }
-    //     console.log(user);
-    //     props.addUser(user);
-    // }
     const onSubmit: SubmitHandler<IFormInput> = (data) => {
-        let role: Role = Object.values(Role)[data.userRole];
         const user: User = {
             id: -1,
             firstName: data.fname,

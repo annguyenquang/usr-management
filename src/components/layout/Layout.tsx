@@ -1,5 +1,4 @@
 import React from "react";
-import SideBar from "./Sidebar";
 import Content from "./Content";
 
 type LayoutProps = {

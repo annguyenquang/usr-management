@@ -1,6 +1,6 @@
 import User from "../../../../types/User";
 import { Button } from "../../../ui/button";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../../../ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../../../ui/dialog";
 
 type DeleteButtonProps = {
     user: User;

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "../../../ui/pagination";
 import User from "../../../../types/User";
 import { Input } from "../../../ui/input";
-
 type PaginationProps = {
     users: User[];
     rowsPerPage: number;
