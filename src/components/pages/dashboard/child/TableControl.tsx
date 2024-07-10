@@ -3,7 +3,8 @@ import { Button } from "../../../ui/button.tsx";
 import { ROLE_OPTIONS } from "./TableWrapper.tsx";
 import AddButton from "./AddButton.tsx";
 import User from "../../../../types/User.ts";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDebounce } from "../../../../hooks/useDebounce.ts";
 
 type TableControlProps = {
     roleOption: number;
@@ -18,11 +19,16 @@ type TableControlProps = {
 }
 
 const TableControl: React.FC<TableControlProps> = (props) => {
+    const [searchText, setSearchText] = React.useState<string>("");
+    const debouncedSearchText = useDebounce<string>(searchText, 800);
+    useEffect(() => {
+        props.setSearchText(searchText);
+    }, [debouncedSearchText]);
     const onRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         props.setRoleOption(parseInt(event.target.value));
     }
     const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        props.setSearchText(event.target.value);
+        setSearchText(event.target.value);
     }
     const onExport = (): void => {
         props.exportToXLSX();
