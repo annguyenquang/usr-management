@@ -1,44 +1,46 @@
-
+import React from "react";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../../../ui/dialog";
 import Role from "../../../../enums/Role";
 import User from "../../../../types/User";
 import { Button } from "../../../ui/button";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../../../ui/dialog";
 import { Input } from "../../../ui/input";
-import React from "react";
+import { UserSchema } from "../../../../types/UserSchema";
 
 type EditButton = {
     user: User;
     editButton: (user: User) => void;
 }
 
-interface IFormInput {
+type FormInputType = {
     fname: string;
     lname: string;
     phone: string;
     email: string;
-    userRole: number;
+    userRole: Role;
 }
 
 const EditButton: React.FC<EditButton> = (props) => {
-    const { handleSubmit, control, formState: { errors } } = useForm<IFormInput>({
+    const { handleSubmit, control, formState: { errors } } = useForm<FormInputType>({
         defaultValues: {
             fname: props.user.firstName as string,
             lname: props.user.lastName as string,
             phone: props.user.phoneNumber as string,
             email: props.user.email as string,
-            userRole: Object.values(Role).indexOf(props.user.role)
-        }
+            userRole: props.user.role
+        },
+        resolver: zodResolver(UserSchema)
     });
 
-    const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    const onSubmit: SubmitHandler<FormInputType> = (data) => {
         const user: User = {
             id: props.user.id,
             firstName: data.fname,
             lastName: data.lname,
             phoneNumber: data.phone,
             email: data.email,
-            role: Object.values(Role)[data.userRole]
+            role: data.userRole
         }
         props.editButton(user);
     }
@@ -64,12 +66,12 @@ const EditButton: React.FC<EditButton> = (props) => {
                                 <label className="text-black" htmlFor="fname">First name</label>
                                 <Controller name="fname"
                                     control={control}
-                                    rules={
-                                        {
-                                            required: "First name needed",
-                                            minLength: { value: 2, message: "First name must have at least 1 characters" },
-                                            maxLength: { value: 20, message: "First name must have at most 20 characters" }
-                                        }}
+                                    // rules={
+                                    //     {
+                                    //         required: "First name needed",
+                                    //         minLength: { value: 2, message: "First name must have at least 1 characters" },
+                                    //         maxLength: { value: 20, message: "First name must have at most 20 characters" }
+                                    //     }}
                                     render={({ field }) => <Input {...field}></Input>}>
                                 </Controller>
                                 {errors.fname && <span className="text-red-500">{errors.fname.message}</span>}
@@ -78,11 +80,11 @@ const EditButton: React.FC<EditButton> = (props) => {
                                 <label className="text-black" htmlFor="lname">Last name</label>
                                 <Controller name="lname"
                                     control={control}
-                                    rules={{
-                                        required: "Last name needed",
-                                        minLength: { value: 2, message: "Last name must have at least 1 characters" },
-                                        maxLength: { value: 20, message: "Last name must have at most 20 characters" }
-                                    }}
+                                    // rules={{
+                                    //     required: "Last name needed",
+                                    //     minLength: { value: 2, message: "Last name must have at least 1 characters" },
+                                    //     maxLength: { value: 20, message: "Last name must have at most 20 characters" }
+                                    // }}
                                     render={({ field }) => <Input  {...field}></Input>}>
                                 </Controller>
                                 {errors.lname && <span className="text-red-500">{errors.lname.message}</span>}
@@ -91,11 +93,11 @@ const EditButton: React.FC<EditButton> = (props) => {
                                 <label className="text-black" htmlFor="phone">Phone</label>
                                 <Controller name="phone"
                                     control={control}
-                                    rules={{
-                                        required: "Phone number needed",
-                                        minLength: { value: 10, message: "Phone number must have at least 10 digits" },
-                                        maxLength: { value: 15, message: "Phone number must have at most 15 digits" }
-                                    }}
+                                    // rules={{
+                                    //     required: "Phone number needed",
+                                    //     minLength: { value: 10, message: "Phone number must have at least 10 digits" },
+                                    //     maxLength: { value: 15, message: "Phone number must have at most 15 digits" }
+                                    // }}
                                     render={({ field }) => <Input  {...field}></Input>}>
                                 </Controller>
                                 {errors.phone && <span className="text-red-500">{errors.phone.message}</span>}
@@ -104,12 +106,12 @@ const EditButton: React.FC<EditButton> = (props) => {
                                 <label className="text-black" htmlFor="email">Email</label>
                                 <Controller name="email"
                                     control={control}
-                                    rules={{
-                                        required: "Phone email needed",
-                                        pattern: {
-                                            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, message: "Invalid email"
-                                        }
-                                    }}
+                                    // rules={{
+                                    //     required: "Phone email needed",
+                                    //     pattern: {
+                                    //         value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, message: "Invalid email"
+                                    //     }
+                                    // }}
                                     render={({ field }) => <Input {...field}></Input>}>
                                 </Controller>
                                 {errors.email && <span className="text-red-500">{errors.email.message}</span>}
@@ -119,12 +121,13 @@ const EditButton: React.FC<EditButton> = (props) => {
                                 <Controller name="userRole"
                                     control={control}
                                     render={({ field }) =>
-                                        <select {...field} className="border rounded border-stone-400 p-1">
-                                            {Object.keys(Role).map((role, idx) => (
-                                                <option className="bg-white" key={idx} value={idx}>{role}</option>
+                                        <select {...field} defaultValue={props.user.role} className="border rounded border-stone-400 p-1">
+                                            {Object.values(Role).map((role, idx) => (
+                                                <option className="bg-white" key={idx} value={role}>{role}</option>
                                             ))}
                                         </select>}></Controller>
                             </div>
+                            {errors.userRole && <span className="text-red-500">{errors.userRole.message}</span>}
                             <div className="flex justify-end space-x-3">
                                 <DialogClose asChild>
                                     <Button className="bg-gray-300 border-stone-300 border hover:border-2 hover:border-black hover:bg-blue-600" value="outline">Cancel</Button>
