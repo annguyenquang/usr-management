@@ -3,7 +3,8 @@ import Layout from "./components/layout/Layout";
 import Dashboard from "./components/pages/dashboard/Dashboard";
 import Setting from "./components/pages/setting/Setting";
 import About from "./components/pages/about/About";
-import { Theme } from "@radix-ui/themes";
+import { Theme, ThemePanel } from "@radix-ui/themes";
+import React from "react";
 
 const AppRoutes: React.FC<{}> = () => {
     return (<>
@@ -17,6 +18,7 @@ const AppRoutes: React.FC<{}> = () => {
                     </Routes>
                 </Layout>
             </Theme>
+
         </BrowserRouter>
     </>)
 }

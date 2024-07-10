@@ -5,7 +5,7 @@ import EditButton from "./EditButton";
 import User from "../../../../types/User";
 import React from "react";
 import Role from "../../../../enums/Role";
-
+import { Badge } from "@radix-ui/themes";
 type TableProps = {
     users: User[]
     deleteUser: (user: User) => void;
@@ -114,9 +114,12 @@ const UserTable: React.FC<TableProps> = (props) => {
                             <td className="font-semibold">{user.phoneNumber}</td>
                             <td className="font-semibold">{user.email}</td>
                             <td className="font-semibold">
-                                <span className={`px-2 ${user.role === Role.USER && "bg-slate-800"} ${user.role === Role.EDITOR && "bg-sky-800"} ${user.role === Role.ADMIN && "bg-red-500"}`}>
+                                {/* <span className={`px-2 ${user.role === Role.USER && "bg-slate-800"} ${user.role === Role.EDITOR && "bg-sky-800"} ${user.role === Role.ADMIN && "bg-red-500"}`}>
                                     {user.role}
-                                </span>
+                                </span> */}
+                                {user.role === Role.USER && <Badge color="yellow" radius="full">Admin</Badge>}
+                                {user.role === Role.EDITOR && <Badge color="blue" radius="full">Editor</Badge>}
+                                {user.role === Role.ADMIN && <Badge color="gray" radius="full">User</Badge>}
                             </td>
                             <td className="font-semibold"><EditButton user={user} editButton={props.editUser} /></td>
                             <td className="font-semibold"><DeleteButton deleteUser={props.deleteUser} user={user} /></td>
