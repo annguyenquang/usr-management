@@ -50,7 +50,12 @@ const AddButton: React.FC<AddButtonProps> = (props) => {
                                 <label className="text-black" htmlFor="fname">First name</label>
                                 <Controller name="fname"
                                     control={control}
-                                    rules={{ required: "First name needed" }}
+                                    rules={
+                                        {
+                                            required: "First name needed",
+                                            minLength: { value: 2, message: "First name must have at least 1 characters" },
+                                            maxLength: { value: 20, message: "First name must have at most 20 characters" }
+                                        }}
                                     render={({ field }) => <Input {...field}></Input>}>
                                 </Controller>
                                 {errors.fname && <span className="text-red-500">{errors.fname.message}</span>}
@@ -59,7 +64,11 @@ const AddButton: React.FC<AddButtonProps> = (props) => {
                                 <label className="text-black" htmlFor="lname">Last name</label>
                                 <Controller name="lname"
                                     control={control}
-                                    rules={{ required: "Last name needed" }}
+                                    rules={{
+                                        required: "Last name needed",
+                                        minLength: { value: 2, message: "Last name must have at least 1 characters" },
+                                        maxLength: { value: 20, message: "Last name must have at most 20 characters" }
+                                    }}
                                     render={({ field }) => <Input {...field}></Input>}>
                                 </Controller>
                                 {errors.lname && <span className="text-red-500">{errors.lname.message}</span>}
@@ -68,15 +77,28 @@ const AddButton: React.FC<AddButtonProps> = (props) => {
                                 <label className="text-black" htmlFor="phone">Phone</label>
                                 <Controller name="phone"
                                     control={control}
+                                    rules={{
+                                        required: "Phone number needed",
+                                        minLength: { value: 10, message: "Phone number must have at least 10 digits" },
+                                        maxLength: { value: 15, message: "Phone number must have at most 15 digits" }
+                                    }}
                                     render={({ field }) => <Input {...field}></Input>}>
                                 </Controller>
+                                {errors.phone && <span className="text-red-500">{errors.phone.message}</span>}
                             </div>
                             <div className="input-container">
                                 <label className="text-black" htmlFor="email">Email</label>
                                 <Controller name="email"
                                     control={control}
+                                    rules={{
+                                        required: "Phone email needed",
+                                        pattern: {
+                                            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, message: "Invalid email"
+                                        }
+                                    }}
                                     render={({ field }) => <Input {...field}></Input>}>
                                 </Controller>
+                                {errors.email && <span className="text-red-500">{errors.email.message}</span>}
                             </div>
                             <div className="select-container">
                                 <label className="text-black" htmlFor="userRole">Role</label>

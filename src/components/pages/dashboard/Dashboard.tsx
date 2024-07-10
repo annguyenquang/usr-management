@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import User from "../../../types/User";
 import generateUsers from "../../../fakedata/generateUsers";
 import TableWrapper from "./child/TableWrapper";
+import React from "react";
 
 export enum SORT_OPTIONS {
     INCREASE = 1,
