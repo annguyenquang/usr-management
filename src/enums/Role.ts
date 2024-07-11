@@ -1,7 +1,8 @@
 enum Role {
-    ADMIN = "Admin",
-    USER = "User",
-    EDITOR = "Editor"
+    ADMIN = "admin",
+    USER = "user",
+    // EDITOR = "editor",
+    MODERATOR = "moderator"
 }
 
 export default Role;

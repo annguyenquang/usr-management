@@ -3,29 +3,29 @@ import { Button } from "../../../ui/button.tsx";
 import { ROLE_OPTIONS } from "./TableWrapper.tsx";
 import AddButton from "./AddButton.tsx";
 import User from "../../../../types/User.ts";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useDebounce } from "../../../../hooks/useDebounce.ts";
+import { UserContext } from "../Dashboard.tsx";
 
 type TableControlProps = {
     roleOption: number;
     setRoleOption: (role: number) => void;
     setSearchText: (searchText: string) => void;
-    rowsPerPage: number;
-    setRowsPerPage: (rowsPerPage: number) => void;
-    page: number;
-    setPage: (page: number) => void;
     exportToXLSX: () => void;
     addUser: (user: User) => void;
 }
 
 const TableControl: React.FC<TableControlProps> = (props) => {
+    const { setRoleFilter, getUserByText } = useContext(UserContext);
     const [searchText, setSearchText] = React.useState<string>("");
     const debouncedSearchText = useDebounce<string>(searchText, 800);
     useEffect(() => {
-        props.setSearchText(searchText);
+        getUserByText(searchText);
+        // props.setSearchText(searchText);
     }, [debouncedSearchText]);
     const onRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        props.setRoleOption(parseInt(event.target.value));
+        setRoleFilter(event.target.value);
+        // props.setRoleOption(parseInt(event.target.value));
     }
     const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setSearchText(event.target.value);
@@ -45,7 +45,7 @@ const TableControl: React.FC<TableControlProps> = (props) => {
                         </div>
                         <select id="role-filter" className="h-full bg-[#515151] border-2 border-white text-white hover:bg-slate-400 hover:cursor-pointer" onChange={onRoleChange}>
                             {ROLE_OPTIONS.map((role, idx) =>
-                                <option key={idx} value={idx}>{role}</option>)}
+                                <option key={idx} value={role}>{role}</option>)}
                         </select>
                     </div>
                 </div>

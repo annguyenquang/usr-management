@@ -32,7 +32,7 @@ const DeleteButton: React.FC<DeleteButtonProps> = (props) => {
                     <div>
                         <p>{props.user.firstName} {props.user.lastName}</p>
                         <p>{props.user.email}</p>
-                        <p>{props.user.phoneNumber}</p>
+                        <p>{props.user.phone}</p>
                         <select disabled className="border-2 px-1 border-stone-600 rounded">
                             <option>{props.user.role}</option></select>
                     </div>

@@ -29,7 +29,7 @@ const AddButton: React.FC<AddButtonProps> = (props) => {
             id: -1,
             firstName: data.fname,
             lastName: data.lname,
-            phoneNumber: data.phone,
+            phone: data.phone,
             email: data.email,
             role: data.userRole
         }

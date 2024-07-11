@@ -26,7 +26,7 @@ const EditButton: React.FC<EditButton> = (props) => {
         defaultValues: {
             fname: props.user.firstName as string,
             lname: props.user.lastName as string,
-            phone: props.user.phoneNumber as string,
+            phone: props.user.phone as string,
             email: props.user.email as string,
             userRole: props.user.role
         },
@@ -38,7 +38,7 @@ const EditButton: React.FC<EditButton> = (props) => {
             id: props.user.id,
             firstName: data.fname,
             lastName: data.lname,
-            phoneNumber: data.phone,
+            phone: data.phone,
             email: data.email,
             role: data.userRole
         }

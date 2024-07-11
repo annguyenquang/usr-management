@@ -6,7 +6,7 @@ type User = {
     firstName: String;
     lastName: String;
     email: String;
-    phoneNumber: String;
+    phone: String;
     role: Role;
 }
 
