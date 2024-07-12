@@ -3,8 +3,9 @@ import User from "../../../types/User";
 import generateUsers from "../../../fakedata/generateUsers";
 import TableWrapper from "./child/TableWrapper";
 import React from "react";
-import axios from "axios";
+import axios, { Axios } from "axios";
 import Role from "../../../enums/Role";
+import { Phone } from "lucide-react";
 
 export const UserContext = createContext<any>({})
 export const ROLE_OPTIONS = ["All", ...Object.values(Role).map((role: Role) => role as string)];
@@ -22,8 +23,25 @@ const Dashboard: React.FC = () => {
     const [roleFilter, setRoleFilter] = useState<string>("All");
     const [order, setOrder] = useState<ORDER>(ORDER.ASC);
 
-    const addUser = (user: User): void => {
-        setUsers([...users, { ...user, id: users.length + 1 }]);
+    const addUser = async (user: User): Promise<void> => {
+        try {
+            const url = "https://dummyjson.com/users/add";
+            const res = await axios({
+                url: url,
+                method: 'post',
+                data: {
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    phone: user.phone,
+                    email: user.email,
+                    role: user.role
+                }
+            })
+            console.log("Res.data", res.data);
+            setUsers([...users, { ...res.data as User, role: user.role }]);
+        } catch (error) {
+            console.log(error);
+        }
     };
     const deleteUser = (user: User): void => {
         setUsers(users.filter((u) => u.id !== user.id));
