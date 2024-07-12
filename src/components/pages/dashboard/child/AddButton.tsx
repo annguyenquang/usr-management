@@ -109,10 +109,10 @@ const AddButton: React.FC<AddButtonProps> = (props) => {
                                 <Controller name="userRole"
                                     control={control}
                                     render={({ field }) =>
-                                        <select className="text-inherit font-sans bg-zinc-900 border-slate-400 border rounded" {...field} >
+                                        <select className="text-white font-sans bg-zinc-900 border-slate-400 border rounded" {...field} >
                                             {
                                                 Object.values(Role).map((role, idx) => (
-                                                    <option className="bg-zinc-900 text-inherit" key={idx} value={role}>{role.slice(0, 1).toUpperCase() + role.slice(1)}</option>
+                                                    <option className="text-white bg-zinc-900" key={idx} value={role}>{role.slice(0, 1).toUpperCase() + role.slice(1)}</option>
                                                 ))
                                             }
                                         </select>}></Controller>
