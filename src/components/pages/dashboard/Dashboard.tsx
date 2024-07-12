@@ -86,20 +86,20 @@ const Dashboard: React.FC = () => {
             console.log(error);
         }
     }
+    const fetchUser = async () => {
+        try {
+            const skip = (page - 1) * rowPerPage;
+            const limit = rowPerPage;
+            const url = `https://dummyjson.com/users?skip=${skip}&limit=${limit}`;
+            const res = await axios(url);
+            setUsers(res.data.users.map(usr => filterUserProps(usr)));
+        } catch (error) {
+            console.log(error);
+        }
+    }
     //USE EFFECTS
     //GET MOCK DATA FROM API
     useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const skip = (page - 1) * rowPerPage;
-                const limit = rowPerPage;
-                const url = `https://dummyjson.com/users?skip=${skip}&limit=${limit}`;
-                const res = await axios(url);
-                setUsers(res.data.users.map(usr => filterUserProps(usr)));
-            } catch (error) {
-                console.log(error);
-            }
-        }
         fetchUser();
     }, [page, rowPerPage]);
 
@@ -151,6 +151,7 @@ const Dashboard: React.FC = () => {
         //If text is empty, set page = 1 to return to the first page
         if (text === "") {
             setPage(1);
+            fetchUser();
             return;
         }
         if ((text[0] >= '0' && text[0] <= '9') || text[0] === '+') { // if the first character is a number or '+', search by phone number
@@ -167,7 +168,6 @@ const Dashboard: React.FC = () => {
                 setUsers(res.data.users.map(usr => filterUserProps(usr)));
             } catch (error) {
                 console.log(error);
-
             }
         }
     }
