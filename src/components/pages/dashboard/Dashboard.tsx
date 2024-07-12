@@ -3,9 +3,10 @@ import User from "../../../types/User";
 import generateUsers from "../../../fakedata/generateUsers";
 import TableWrapper from "./child/TableWrapper";
 import React from "react";
-import axios, { Axios } from "axios";
+import axios, { Axios, AxiosResponse } from "axios";
 import Role from "../../../enums/Role";
-import { Phone } from "lucide-react";
+import { filterUserProps, getChangeProps } from "../../../utils/helper";
+import { set } from "react-hook-form";
 
 export const UserContext = createContext<any>({})
 export const ROLE_OPTIONS = ["All", ...Object.values(Role).map((role: Role) => role as string)];
@@ -38,23 +39,44 @@ const Dashboard: React.FC = () => {
                 }
             })
             console.log("Res.data", res.data);
-            setUsers([...users, { ...res.data as User, role: user.role }]);
+            //Just add to local state (users) for add user feature simulation 
+            setUsers([...users, { ...filterUserProps(res.data), role: user.role }]);
         } catch (error) {
             console.log(error);
         }
     };
     const deleteUser = (user: User): void => {
-        setUsers(users.filter((u) => u.id !== user.id));
+        setUsers(users.filter((u) => u.id !== user.id) as User[]);
     }
-    const editUser = (newUser: User): void => {
-        setUsers(users.map((user) => user.id === newUser.id ? newUser : user));
+    const editUser = async (newUser: User): Promise<void> => {
+        const oldUser = users.find(usr => usr.id === newUser.id);
+        console.log("Old User", oldUser);
+        console.log("New User", newUser);
+        const changedInfo = getChangeProps(newUser, oldUser, "new"); //Get only changed info
+        console.log(changedInfo);
+        if (newUser.id) {
+            try {
+                const url = `https://dummyjson.com/users/${newUser.id}`;
+                const res = await axios({
+                    url: url,
+                    method: 'put',
+                    data: changedInfo
+                });
+                //Update local state (users) for edit user feature simulation
+                setUsers(users.map(usr => usr.id === newUser.id ? { ...filterUserProps(res.data), role: newUser.role } : usr))
+            } catch (error) {
+                console.log(error)
+            }
+        } else {
+            console.log("Invalid user Id");
+        }
     }
     //SORT METHODS
     const sortUsers = async (by: String, o?: ORDER) => {
         try {
             const url = `https://dummyjson.com/users?sortBy=${by}&order=${o ?? order}`;
             const res = await axios(url);
-            setUsers(res.data.users);
+            setUsers(res.data.users.map(usr => filterUserProps(usr)));
             setOrder(o ?? order === ORDER.ASC ? ORDER.DESC : ORDER.ASC);
         } catch (error) {
             console.log(error);
@@ -69,17 +91,13 @@ const Dashboard: React.FC = () => {
                 const limit = rowPerPage;
                 const url = `https://dummyjson.com/users?skip=${skip}&limit=${limit}`;
                 const res = await axios(url);
-                setUsers(res.data.users);
-                console.log("res.data", res.data);
+                setUsers(res.data.users.map(usr => filterUserProps(usr)));
             } catch (error) {
                 console.log(error);
             }
         }
         fetchUser();
     }, [page, rowPerPage]);
-    useEffect(() => {
-        console.log("ResUser", users);
-    }, [users]);
 
     //GET TOTAL USERS
     useEffect(() => {
@@ -106,7 +124,7 @@ const Dashboard: React.FC = () => {
                     `https://dummyjson.com/users/filter?key=role&value=${by as string}&skip=${skip}&limit=${limit}`
                     : `https://dummyjson.com/users?skip=${skip}&limit=${limit}`;
                 const res = await axios(url);
-                setUsers(res.data.users);
+                setUsers(res.data.users.map(usr => filterUserProps(usr)));
             } catch (error) {
                 console.log(error);
             }
@@ -118,7 +136,7 @@ const Dashboard: React.FC = () => {
         try {
             const url = `https://dummyjson.com/users?limit=${totalUsers}`;
             const res = await axios(url);
-            return res.data.users;
+            return res.data.users.map(usr => filterUserProps(usr));
         } catch (error) {
             console.log(error);
             return [];
@@ -142,7 +160,7 @@ const Dashboard: React.FC = () => {
             try {
                 const url = `https://dummyjson.com/users/search?q=${text}`;
                 const res = await axios(url);
-                setUsers(res.data.users);
+                setUsers(res.data.users.map(usr => filterUserProps(usr)));
             } catch (error) {
                 console.log(error);
 
