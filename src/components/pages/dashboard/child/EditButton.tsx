@@ -121,7 +121,7 @@ const EditButton: React.FC<EditButton> = (props) => {
                                 <Controller name="userRole"
                                     control={control}
                                     render={({ field }) =>
-                                        <select className="text-white font-sans bg-zinc-900 border-slate-400 border rounded" {...field} defaultValue={props.user.role} className="border rounded border-stone-400 p-1">
+                                        <select className="text-white font-sans bg-zinc-900 border-slate-400 border rounded" {...field} defaultValue={props.user.role}>
                                             {
                                                 Object.values(Role).map((role, idx) => (
                                                     <option className="bg-zinc-900 text-white" key={idx} value={role}>{role.slice(0, 1).toUpperCase() + role.slice(1)}</option>
