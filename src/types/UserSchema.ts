@@ -22,5 +22,5 @@ export const UserSchema = z.object({
             {
                 message: "Phone number must contain only digits",
             }),
-    userRole: z.nativeEnum(Role)
+    userRole: z.nativeEnum(Role),
 }).required();

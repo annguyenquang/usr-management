@@ -35,12 +35,14 @@ const Dashboard: React.FC = () => {
                     lastName: user.lastName,
                     phone: user.phone,
                     email: user.email,
-                    role: user.role
+                    role: user.role,
+                    // the image usually is too large to send to the server
+                    // image: user.image 
                 }
             })
             console.log("Res.data", res.data);
             //Just add to local state (users) for add user feature simulation 
-            setUsers([...users, { ...filterUserProps(res.data), role: user.role }]);
+            setUsers([...users, { ...filterUserProps(res.data), role: user.role, image: user.image }]);
         } catch (error) {
             console.log(error);
         }
@@ -53,14 +55,16 @@ const Dashboard: React.FC = () => {
         console.log("Old User", oldUser);
         console.log("New User", newUser);
         const changedInfo = getChangeProps(newUser, oldUser, "new"); //Get only changed info
-        console.log(changedInfo);
+        // console.log(changedInfo);
         if (newUser.id) {
             try {
                 const url = `https://dummyjson.com/users/${newUser.id}`;
                 const res = await axios({
                     url: url,
                     method: 'put',
-                    data: changedInfo
+                    // In real project, we should send only changed info to the server
+                    // data: changedInfo
+                    data: newUser
                 });
                 //Update local state (users) for edit user feature simulation
                 setUsers(users.map(usr => usr.id === newUser.id ? { ...filterUserProps(res.data), role: newUser.role } : usr))

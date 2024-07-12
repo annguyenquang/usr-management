@@ -8,6 +8,7 @@ type User = {
     email: String;
     phone: String;
     role: Role;
+    image?: string;
 }
 
 export default User;

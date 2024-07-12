@@ -5,7 +5,7 @@ import EditButton from "./EditButton";
 import User from "../../../../types/User";
 import React from "react";
 import Role from "../../../../enums/Role";
-import { Badge } from "@radix-ui/themes";
+import { Avatar, Badge, Tooltip } from "@radix-ui/themes";
 type TableProps = {
     users: User[]
     deleteUser: (user: User) => void;
@@ -75,24 +75,27 @@ const UserTable: React.FC<TableProps> = (props) => {
                 </thead>
                 <tbody>
                     {props.users.map((user, idx) => (
-                        <tr key={idx} className="m-4">
-                            <td className="font-semibold text-center">{user.id}</td>
-                            <td className="font-semibold">{user.firstName}</td>
-                            <td className="font-semibold">{user.lastName}</td>
-                            <td className="font-semibold">{user.phone}</td>
-                            <td className="font-semibold">{user.email}</td>
-                            <td className="font-semibold">
-                                {/* <span className={`px-2 ${user.role === Role.USER && "bg-slate-800"} ${user.role === Role.EDITOR && "bg-sky-800"} ${user.role === Role.ADMIN && "bg-red-500"}`}>
+                        <Tooltip key={idx} side="bottom" className="bg-white" align="center" delayDuration={500} content={<Avatar className="rounded border border-black" size="9" src={user.image} fallback="No image"></Avatar>}>
+                            <tr className="m-4 overflow-hidden hover:border hover:border-black hover:bg-slate-300 hover:skew-x-3 hover:text-black hover:cursor-pointer">
+                                <td className="font-semibold text-center text-inherit">{user.id}</td>
+                                <td className="font-semibold text-inherit">{user.firstName}</td>
+                                <td className="font-semibold text-inherit">{user.lastName}</td>
+                                <td className="font-semibold text-inherit">{user.phone}</td>
+                                <td className="font-semibold text-inherit">{user.email}</td>
+                                <td className="font-semibold text-inherit">
+                                    {/* <span className={`px-2 ${user.role === Role.USER && "bg-slate-800"} ${user.role === Role.EDITOR && "bg-sky-800"} ${user.role === Role.ADMIN && "bg-red-500"}`}>
                                     {user.role}
                                 </span> */}
-                                {/* {user.role === Role.EDITOR && <Badge color="blue" radius="full">Editor</Badge>} */}
-                                {user.role === Role.USER && <Badge color="gray" radius="small">User</Badge>}
-                                {user.role === Role.ADMIN && <Badge color="yellow" radius="small">Admin</Badge>}
-                                {user.role === Role.MODERATOR && <Badge color="blue" radius="small">Moderator</Badge>}
-                            </td>
-                            <td className="font-semibold"><EditButton user={user} editButton={props.editUser} /></td>
-                            <td className="font-semibold"><DeleteButton deleteUser={props.deleteUser} user={user} /></td>
-                        </tr>
+                                    {/* {user.role === Role.EDITOR && <Badge color="blue" radius="full">Editor</Badge>} */}
+                                    {user.role === Role.USER && <Badge className="border-inherit" color="gray" radius="small">User</Badge>}
+                                    {user.role === Role.ADMIN && <Badge color="yellow" radius="small">Admin</Badge>}
+                                    {user.role === Role.MODERATOR && <Badge color="blue" radius="small">Moderator</Badge>}
+                                </td>
+                                <td className="font-semibold"><EditButton user={user} editButton={props.editUser} /></td>
+                                <td className="font-semibold"><DeleteButton deleteUser={props.deleteUser} user={user} /></td>
+                            </tr>
+
+                        </Tooltip>
                     ))}
                 </tbody>
             </table>

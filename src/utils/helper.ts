@@ -8,6 +8,7 @@ export const filterUserProps = (user: any): User => {
         email: user.email,
         phone: user.phone,
         role: user.role,
+        image: user.image
     };
 };
 
