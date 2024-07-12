@@ -45,7 +45,7 @@ const TableControl: React.FC<TableControlProps> = (props) => {
                         </div>
                         <select id="role-filter" className="h-full bg-[#515151] border-2 border-white text-white hover:bg-slate-400 hover:cursor-pointer" onChange={onRoleChange}>
                             {ROLE_OPTIONS.map((role, idx) =>
-                                <option key={idx} value={role}>{role}</option>)}
+                                <option key={idx} value={role}>{role.slice(0, 1).toUpperCase() + role.slice(1)}</option>)}
                         </select>
                     </div>
                 </div>
