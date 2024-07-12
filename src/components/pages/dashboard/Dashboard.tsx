@@ -5,6 +5,7 @@ import TableWrapper from "./child/TableWrapper";
 import React from "react";
 import axios from "axios";
 import Role from "../../../enums/Role";
+import { set } from "react-hook-form";
 
 export const UserContext = createContext<any>({})
 export const ROLE_OPTIONS = ["All", ...Object.values(Role).map((role: Role) => role as string)];
@@ -107,12 +108,27 @@ const Dashboard: React.FC = () => {
     }
 
     const getUserByText = async (text: string) => {
-        try {
-            const url = `https://dummyjson.com/users/search?q=${text}`;
-            const res = await axios(url);
-            setUsers(res.data.users);
-        } catch (error) {
-            console.log(error);
+        //If text is empty, set page = 1 to return to the first page
+        if (text === "") {
+            setPage(1);
+            return;
+        }
+        if ((text[0] >= '0' && text[0] <= '9') || text[0] === '+') { // if the first character is a number or '+', search by phone number
+            try {
+                const res: User[] = await getAllUsers();
+                setUsers(res.filter((user) => user.phone.toString().includes(text)));
+            } catch (error) {
+                console.log(error);
+            }
+        } else { // case text is not a phone number, search by firstname, lastname, email
+            try {
+                const url = `https://dummyjson.com/users/search?q=${text}`;
+                const res = await axios(url);
+                setUsers(res.data.users);
+            } catch (error) {
+                console.log(error);
+
+            }
         }
     }
 
