@@ -5,7 +5,7 @@ import UserTable from "./UserTable"
 import Role from "../../../../enums/Role"
 import * as XLSX from 'xlsx'
 import TablePagination from "./TablePagination"
-import { ORDER, UserContext } from "../Dashboard"
+import { UserContext } from "../Dashboard"
 import React from "react"
 import axios from "axios"
 type TableWrapperProps = {

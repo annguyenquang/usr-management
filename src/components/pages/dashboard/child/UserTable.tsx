@@ -1,12 +1,11 @@
 import { useContext, useState } from "react";
-import { ORDER, UserContext } from "../Dashboard";
+import { UserContext } from "../Dashboard";
 import DeleteButton from "./DeleteButton";
 import EditButton from "./EditButton";
 import User from "../../../../types/User";
 import React from "react";
 import Role from "../../../../enums/Role";
 import { Badge } from "@radix-ui/themes";
-import { set } from "react-hook-form";
 type TableProps = {
     users: User[]
     deleteUser: (user: User) => void;

@@ -5,7 +5,6 @@ import TableWrapper from "./child/TableWrapper";
 import React from "react";
 import axios from "axios";
 import Role from "../../../enums/Role";
-import { set } from "react-hook-form";
 
 export const UserContext = createContext<any>({})
 export const ROLE_OPTIONS = ["All", ...Object.values(Role).map((role: Role) => role as string)];
@@ -22,6 +21,7 @@ const Dashboard: React.FC = () => {
     const [rowPerPage, setRowPerPage] = useState<number>(15);
     const [roleFilter, setRoleFilter] = useState<string>("All");
     const [order, setOrder] = useState<ORDER>(ORDER.ASC);
+
     const addUser = (user: User): void => {
         setUsers([...users, { ...user, id: users.length + 1 }]);
     };
