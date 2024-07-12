@@ -9,7 +9,7 @@ import React from "react";
 const AppRoutes: React.FC<{}> = () => {
     return (<>
         <BrowserRouter>
-            <Theme appearance="dark">
+            <Theme appearance="dark" className="bg-inherit">
                 <Layout>
                     <Routes>
                         <Route path="/" element={<Dashboard />} />

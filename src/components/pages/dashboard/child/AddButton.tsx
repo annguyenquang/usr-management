@@ -40,9 +40,9 @@ const AddButton: React.FC<AddButtonProps> = (props) => {
             <DialogTrigger asChild>
                 <Button className="bg-orange-400 rounded-none px-5"><span className="text-xl">+</span>&nbsp;&nbsp;Add User</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md">
+            <DialogContent className="sm:max-w-md !bg-[#1b1c20] border-[2px] border-slate-400 font-sans text-slate-400">
                 <DialogHeader>
-                    <DialogTitle>Add User</DialogTitle>
+                    <DialogTitle className="text-white text-2xl">Add <span className="text-orange-400">User</span></DialogTitle>
                     <DialogDescription>
                         Add a proper user to the system.
                     </DialogDescription>
@@ -51,7 +51,7 @@ const AddButton: React.FC<AddButtonProps> = (props) => {
                     <div className="grid flex-1 gap-2">
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="input-container">
-                                <label className="text-black" htmlFor="fname">First name</label>
+                                <label className="text-inherit font-sans" htmlFor="fname">First name</label>
                                 <Controller name="fname"
                                     control={control}
                                     // rules={
@@ -60,12 +60,12 @@ const AddButton: React.FC<AddButtonProps> = (props) => {
                                     //         minLength: { value: 2, message: "First name must have at least 1 characters" },
                                     //         maxLength: { value: 20, message: "First name must have at most 20 characters" }
                                     //     }}
-                                    render={({ field }) => <Input {...field}></Input>}>
+                                    render={({ field }) => <Input className="text-white bg-zin123c-900 border-slate-400 font-thin" {...field} />}>
                                 </Controller>
                                 {errors.fname && <span className="text-red-500">{errors.fname.message}</span>}
                             </div>
                             <div className="input-container">
-                                <label className="text-black" htmlFor="lname">Last name</label>
+                                <label className="text-inherit font-sans" htmlFor="lname">Last name</label>
                                 <Controller name="lname"
                                     control={control}
                                     // rules={{
@@ -73,12 +73,12 @@ const AddButton: React.FC<AddButtonProps> = (props) => {
                                     //     minLength: { value: 2, message: "Last name must have at least 1 characters" },
                                     //     maxLength: { value: 20, message: "Last name must have at most 20 characters" }
                                     // }}
-                                    render={({ field }) => <Input {...field}></Input>}>
+                                    render={({ field }) => <Input className="text-white bg-zinc-900 border-slate-400 font-thin" {...field} />}>
                                 </Controller>
                                 {errors.lname && <span className="text-red-500">{errors.lname.message}</span>}
                             </div>
                             <div className="input-container">
-                                <label className="text-black" htmlFor="phone">Phone</label>
+                                <label className="text-inherit font-sans" htmlFor="phone">Phone</label>
                                 <Controller name="phone"
                                     control={control}
                                     // rules={{
@@ -86,12 +86,12 @@ const AddButton: React.FC<AddButtonProps> = (props) => {
                                     //     minLength: { value: 10, message: "Phone number must have at least 10 digits" },
                                     //     maxLength: { value: 15, message: "Phone number must have at most 15 digits" }
                                     // }}
-                                    render={({ field }) => <Input {...field}></Input>}>
+                                    render={({ field }) => <Input className="text-white bg-zinc-900 border-slate-400 font-thin" {...field} />}>
                                 </Controller>
                                 {errors.phone && <span className="text-red-500">{errors.phone.message}</span>}
                             </div>
                             <div className="input-container">
-                                <label className="text-black" htmlFor="email">Email</label>
+                                <label className="text-inherit font-sans" htmlFor="email">Email</label>
                                 <Controller name="email"
                                     control={control}
                                     // rules={{
@@ -100,27 +100,28 @@ const AddButton: React.FC<AddButtonProps> = (props) => {
                                     //         value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, message: "Invalid email"
                                     //     }
                                     // }}
-                                    render={({ field }) => <Input {...field}></Input>}>
+                                    render={({ field }) => <Input className="text-white bg-zinc-900 border-slate-400 font-thin" {...field} />}>
                                 </Controller>
                                 {errors.email && <span className="text-red-500">{errors.email.message}</span>}
                             </div>
-                            <div className="select-container">
-                                <label className="text-black" htmlFor="userRole">Role</label>
+                            <div className="select-container mt-2">
+                                <label className="text-inherit font-thin mr-5" htmlFor="userRole">Role</label>
                                 <Controller name="userRole"
                                     control={control}
                                     render={({ field }) =>
-                                        <select {...field}>
-                                            {Object.values(Role).map((role, idx) => (
-                                                <option className="bg-white" key={idx} value={role}>{role}</option>
-                                            ))}
+                                        <select className="text-inherit font-sans bg-zinc-900 border-slate-400 border rounded" {...field} >
+                                            {
+                                                Object.values(Role).map((role, idx) => (
+                                                    <option className="bg-zinc-900 text-inherit" key={idx} value={role}>{role.slice(0, 1).toUpperCase() + role.slice(1)}</option>
+                                                ))
+                                            }
                                         </select>}></Controller>
-                                {errors.userRole && <span className="text-red-500">{errors.userRole.message}</span>}
                             </div>
-                            <div className="flex justify-between mt-2 space-x-2">
+                            <div className="flex justify-between mt-4 space-x-2">
                                 <DialogClose asChild>
-                                    <Button className="bg-gray-300 border-stone-300 border hover:border-2 hover:border-black hover:bg-blue-600" variant="outline">Cancel</Button>
+                                    <Button className="bg-gray-300 border-stone-300 border hover:border-2 hover:border-black hover:bg-blue-600 origin-center hover:scale-125 text-black" variant="outline">Cancel</Button>
                                 </DialogClose>
-                                <Button className="bg-blue-400" type="submit">Save</Button>
+                                <Button className="bg-orange-400 px-9 font-thin transition delay-100 hover:scale-125 hover:bg-orange-300" type="submit">Save</Button>
                             </div>
                         </form>
                     </div>

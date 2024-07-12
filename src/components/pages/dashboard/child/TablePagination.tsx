@@ -6,6 +6,7 @@ import { UserContext } from "../Dashboard";
 type PaginationProps = {
     number_of_pages: number;
 }
+
 const TablePagination: React.FC<PaginationProps> = (props) => {
     const { page, setPage, rowPerPage, setRowPerPage, users, totalUsers } = useContext(UserContext);
     const [displayedPages, setDisplayedPages] = useState<number[]>([]);
