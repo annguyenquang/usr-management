@@ -42,7 +42,7 @@ const UserTable: React.FC<TableProps> = (props) => {
     }
 
     return (
-        <div className="bg-[#515151]">
+        <div className="bg-[#515151] rounded-xl overflow-hidden">
             <table id="usr-table" className="w-full table-auto border-spacing-11">
                 <thead>
                     <tr className="bg-slate-800 h-[45px]">
@@ -86,9 +86,9 @@ const UserTable: React.FC<TableProps> = (props) => {
                                     {user.role}
                                 </span> */}
                                 {/* {user.role === Role.EDITOR && <Badge color="blue" radius="full">Editor</Badge>} */}
-                                {user.role === Role.USER && <Badge color="gray" radius="full">User</Badge>}
-                                {user.role === Role.ADMIN && <Badge color="yellow" radius="full">Admin</Badge>}
-                                {user.role === Role.MODERATOR && <Badge color="blue" radius="full">Moderator</Badge>}
+                                {user.role === Role.USER && <Badge color="gray" radius="small">User</Badge>}
+                                {user.role === Role.ADMIN && <Badge color="yellow" radius="small">Admin</Badge>}
+                                {user.role === Role.MODERATOR && <Badge color="blue" radius="small">Moderator</Badge>}
                             </td>
                             <td className="font-semibold"><EditButton user={user} editButton={props.editUser} /></td>
                             <td className="font-semibold"><DeleteButton deleteUser={props.deleteUser} user={user} /></td>

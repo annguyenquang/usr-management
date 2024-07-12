@@ -18,6 +18,11 @@ const TablePagination: React.FC<PaginationProps> = (props) => {
             setDisplayedPages([...Array(5)].map((_, i) => i + page - 2).filter((p) => p <= lastPage));
         }
     }, [page, users]);
+
+    const toLastPage = () => {
+        setPage(Math.ceil(totalUsers / rowPerPage));
+    }
+
     return (
         <div className="flex p-x-2 items-center">
             <Pagination className="flex-1">
@@ -29,15 +34,14 @@ const TablePagination: React.FC<PaginationProps> = (props) => {
                         displayedPages.map((p) => {
                             return (
                                 <PaginationItem onClick={() => { setPage(p) }} key={p}>
-                                    <PaginationLink className={`${p == page ? "bg-orange-400" : ""}`} isActive={p == page} href="#" size={undefined}>{p}</PaginationLink>
+                                    <PaginationLink className={`${p == page && "bg-orange-400"} hover:bg-slate-400`} isActive={p == page} href="#" size={undefined}>{p}</PaginationLink>
                                 </PaginationItem>
                             )
                         })
                     }
                     {!displayedPages.includes(Math.ceil(totalUsers / rowPerPage))
                         &&
-
-                        <PaginationItem>
+                        <PaginationItem className="rounded hover:bg-slate-400" onClick={toLastPage}>
                             <PaginationEllipsis className="text-white" />
                         </PaginationItem>
                     }
