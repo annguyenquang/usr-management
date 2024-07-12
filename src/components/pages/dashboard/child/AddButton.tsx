@@ -38,7 +38,7 @@ const AddButton: React.FC<AddButtonProps> = (props) => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button className="bg-orange-400 rounded-none px-5"><span className="text-xl">+</span>&nbsp;&nbsp;Add User</Button>
+                <Button className="bg-orange-400 hover:bg-orange-300 z-0 px-5"><span className="text-xl">+</span>&nbsp;&nbsp;Add User</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md !bg-[#1b1c20] border-[2px] border-slate-400 font-sans text-slate-400">
                 <DialogHeader>
