@@ -8,6 +8,7 @@ import TablePagination from "./TablePagination"
 import { UserContext } from "../Dashboard"
 import React from "react"
 import axios from "axios"
+import { getTailwindBreakPointValue } from "../../../../utils/helper"
 type TableWrapperProps = {
     users: User[],
     addUser: (user: User) => void;
@@ -62,7 +63,7 @@ const TableWrapper: React.FC<TableWrapperProps> = (props) => {
     }, [searchText]);
 
     return (
-        <div className="h-full flex flex-col justify-between p-5">
+        <div className="h-full flex flex-col justify-between p-1 md:p-5">
             <div className="overflow-auto flex-1">
                 <TableControl
                     addUser={props.addUser}
@@ -79,7 +80,7 @@ const TableWrapper: React.FC<TableWrapperProps> = (props) => {
                 </div>
             </div>
             <div className="">
-                <TablePagination number_of_pages={5} />
+                <TablePagination number_of_pages={window.innerWidth > getTailwindBreakPointValue("md") ? 5 : 4} />
             </div>
         </div>
     )

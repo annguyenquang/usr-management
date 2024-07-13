@@ -19,3 +19,7 @@ button {
 td {
   font-family: monospace;
 }
+
+html {
+  font-size: medium;
+}

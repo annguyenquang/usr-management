@@ -31,3 +31,26 @@ export const getChangeProps = <T>(newVal: T, oldVal: T, get: "new" | "old" = "ne
 
     return changedProps;
 }
+
+export const getTailwindBreakPointValue = (str: string) => {
+    switch (str) {
+        case "sm": {
+            return 640;
+        }
+        case "md": {
+            return 768;
+        }
+        case "lg": {
+            return 1024;
+        }
+        case "xl": {
+            return 1280;
+        }
+        case "2xl": {
+            return 1536;
+        }
+        default: {
+            return 0;
+        }
+    }
+}
