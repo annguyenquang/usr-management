@@ -15,10 +15,9 @@ export const UserSchema = z.object({
     email: z.string({ required_error: "Email needed" })
         .email({ message: "Invalid email" }),
     phone: z.string({ required_error: "Phone number needed" })
-        .startsWith("0", { message: "Phone number must start with 0" })
-        .max(15, { message: "Phone number must have at most 15 digits" })
+        .max(20, { message: "Phone number must have at most 20 digits" })
         .min(10, { message: "Phone number must have at least 10 digits" })
-        .refine((phone) => /^\d+$/.test(phone),
+        .refine((phone) => /^[\d\s+-]+$/.test(phone),
             {
                 message: "Phone number must contain only digits",
             }),
