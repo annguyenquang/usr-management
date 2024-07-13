@@ -91,7 +91,7 @@ const UserTable: React.FC<TableProps> = (props) => {
                                     {user.role === Role.ADMIN && <Badge color="yellow" radius="small">Admin</Badge>}
                                     {user.role === Role.MODERATOR && <Badge color="blue" radius="small">Moderator</Badge>}
                                 </td>
-                                <td className="font-semibold"><EditButton user={user} editButton={props.editUser} /></td>
+                                <td className="font-semibold"><EditButton user={user} /></td>
                                 <td className="font-semibold"><DeleteButton deleteUser={props.deleteUser} user={user} /></td>
                             </tr>
 

@@ -51,11 +51,11 @@ const Dashboard: React.FC = () => {
         setUsers(users.filter((u) => u.id !== user.id) as User[]);
     }
     const editUser = async (newUser: User): Promise<void> => {
+        console.log("newUser", newUser);
         const oldUser = users.find(usr => usr.id === newUser.id);
-        console.log("Old User", oldUser);
-        console.log("New User", newUser);
         const changedInfo = getChangeProps(newUser, oldUser, "new"); //Get only changed info
-        // console.log(changedInfo);
+
+        // Because the image is too large to send to the server, we should not send it to the server
         if (newUser.id) {
             try {
                 const url = `https://dummyjson.com/users/${newUser.id}`;
@@ -64,10 +64,10 @@ const Dashboard: React.FC = () => {
                     method: 'put',
                     // In real project, we should send only changed info to the server
                     // data: changedInfo
-                    data: newUser
+                    data: { ...newUser, image: '' }
                 });
                 //Update local state (users) for edit user feature simulation
-                setUsers(users.map(usr => usr.id === newUser.id ? { ...filterUserProps(res.data), role: newUser.role } : usr))
+                setUsers(users.map(usr => usr.id === newUser.id ? { ...filterUserProps(res.data), role: newUser.role, image: newUser.image } : usr))
             } catch (error) {
                 console.log(error)
             }
