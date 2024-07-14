@@ -43,6 +43,7 @@ const UserTable: React.FC<TableProps> = (props) => {
 
     return (
         <>
+            {/* PC */}
             <div className="bg-[#515151] rounded-xl ohidden md:blockverflow-hidden hidden md:block">
                 <table id="usr-table" className="w-full table-auto border-spacing-11">
                     <thead>
@@ -101,6 +102,7 @@ const UserTable: React.FC<TableProps> = (props) => {
                     </tbody>
                 </table>
             </div>
+            {/* MOBILE */}
             <div className="md:hidden ">
                 {props.users.map(u =>
                     <Card className="flex bg-[#111113] !p-5 overflow-hidden space-x-3 border border-slate-300 mt-1">

@@ -65,14 +65,14 @@ const TableWrapper: React.FC<TableWrapperProps> = (props) => {
     return (
         <div className="h-full flex flex-col justify-between md:p-5">
             <div className="flex-1">
-                <div className="sticky px-1 top-0 z-10">
+                <div className="sticky px-1 top-0 z-10 bg-[#515151] md:bg-inherit">
                     <TableControl addUser={props.addUser} exportToXLSX={exportToXLSX} setSearchText={setSearchText} roleOption={roleOption} setRoleOption={setRoleOption} />
                 </div>
-                <div className="overflow-hidden px-1">
+                <div className="px-1 md:mt-2 overflow-y-scroll md:h-[650px]">
                     <UserTable editUser={props.editUser} deleteUser={props.deleteUser} users={displayedUsers} />
                 </div>
             </div>
-            <div className="sticky px-2 bottom-0 z-10 bg-[#515151]">
+            <div className="sticky px-2 bottom-0 z-10 bg-[#515151] md:bg-inherit">
                 <TablePagination number_of_pages={window.innerWidth > getTailwindBreakPointValue("md") ? 5 : 4} />
             </div>
         </div>
